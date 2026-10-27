@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A.G Automotores — Catálogo exclusivo de autos, camionetas y motos seleccionadas. Financiación y atención personalizada.">
+  <title>A.G Automotores | Concesionario Oficial</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    :root {
+      --bg-main: #07090e;
+      --bg-card: #0f131c;
+      --bg-card-hover: #151a26;
+      --accent-gold: #d4af37;
+      --accent-gold-bright: #f3e5ab;
+      --accent-gold-dark: #997a15;
+      --gold-glow: rgba(212, 175, 55, 0.25);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border-color: rgba(212, 175, 55, 0.18);
+      --whatsapp-green: #22c55e;
+      --whatsapp-hover: #16a34a;
+      --danger: #ef4444;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--bg-main); color: var(--text-primary); padding-bottom: 60px; min-height: 100vh; display: flex; flex-direction: column; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1200px, 92%); margin: 0 auto; }
+
+    /* HEADER */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(7, 9, 14, 0.95); backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+    }
+    .nav-wrapper { min-height: 90px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    
+    .brand-box { display: flex; align-items: center; gap: 14px; cursor: pointer; }
+    .brand-logo { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--accent-gold); object-fit: cover; box-shadow: 0 0 15px var(--gold-glow); }
+    .brand-title { font-size: 1.4rem; font-weight: 800; letter-spacing: 0.15em; color: #fff; text-transform: uppercase; }
+    .brand-title span { color: var(--accent-gold); }
+
+    .nav-links { display: flex; gap: 8px; align-items: center; background: var(--bg-card); padding: 6px; border-radius: 30px; border: 1px solid var(--border-color); }
+    .nav-item { color: var(--text-secondary); font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: 0.3s; padding: 8px 18px; border-radius: 20px; }
+    .nav-item:hover { color: var(--accent-gold); }
+    .nav-item.active { background: var(--accent-gold); color: #000; font-weight: 700; box-shadow: 0 4px 15px var(--gold-glow); }
+
+    .header-right { display: flex; align-items: center; gap: 15px; }
+    
+    .status-pill {
+      display: flex; align-items: center; gap: 8px; background: var(--bg-card);
+      border: 1px solid var(--border-color); padding: 8px 14px; border-radius: 20px;
+      font-size: 0.82rem; color: var(--text-secondary);
+    }
+    .live-dot { width: 8px; height: 8px; background-color: var(--whatsapp-green); border-radius: 50%; box-shadow: 0 0 8px var(--whatsapp-green); animation: pulse 2s infinite; }
+    @keyframes pulse { 0% { transform: scale(0.95); opacity: 0.8; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.95); opacity: 0.8; } }
+
+    .btn-gold {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 20px;
+      background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+      color: #000; font-weight: 700; font-size: 0.88rem; border-radius: var(--radius-sm);
+      border: none; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 15px var(--gold-glow);
+    }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--gold-glow); }
+
+    .btn-outline-gold {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 18px;
+      background: transparent; color: var(--accent-gold); font-weight: 600; font-size: 0.88rem;
+      border-radius: var(--radius-sm); border: 1px solid var(--accent-gold); cursor: pointer; transition: 0.2s;
+    }
+    .btn-outline-gold:hover { background: rgba(212, 175, 55, 0.1); }
+
+    .admin-tab-custom {
+      background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-secondary);
+      padding: 10px 20px; border-radius: var(--radius-sm); font-weight: 600; font-size: 0.9rem;
+      cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .admin-tab-custom:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+    .admin-tab-custom.active {
+      background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+      color: #000; border-color: var(--accent-gold); font-weight: 700; box-shadow: 0 4px 15px var(--gold-glow);
+    }
+
+    .view-page { display: none; opacity: 0; transition: opacity 0.3s ease-in-out; padding: 40px 0; flex-grow: 1; }
+    .view-page.active { display: block; opacity: 1; }
+
+    .hero-slider {
+      position: relative; height: 440px; border-radius: var(--radius-lg);
+      overflow: hidden; border: 1px solid var(--border-color);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.7); margin-bottom: 40px; background: var(--bg-card);
+    }
+    .slide-item {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background-size: cover; background-position: center; opacity: 0; transition: opacity 0.8s ease-in-out;
+      display: flex; align-items: flex-end; padding: 45px;
+    }
+    .slide-item.active { opacity: 1; }
+    .slide-overlay { position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(0deg, rgba(7,9,14,0.95) 20%, transparent 80%); }
+    .slide-content { position: relative; z-index: 2; max-width: 650px; }
+
+    .control-bar {
+      background: var(--bg-card); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); padding: 22px; margin-bottom: 35px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .control-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 15px; }
+    .control-field label { display: block; font-size: 0.75rem; color: var(--accent-gold); text-transform: uppercase; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.05em; }
+    .control-input, .control-select {
+      width: 100%; background: var(--bg-main); border: 1px solid var(--border-color);
+      color: var(--text-primary); padding: 11px 14px; border-radius: var(--radius-sm); font-size: 0.9rem; outline: none;
+      transition: border-color 0.2s;
+    }
+    .control-input:focus, .control-select:focus { border-color: var(--accent-gold); }
+
+    .vehicle-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+    .vehicle-card {
+      background: var(--bg-card); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); overflow: hidden; transition: all 0.3s ease;
+      display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;
+    }
+    .vehicle-card:hover { transform: translateY(-6px); border-color: var(--accent-gold); box-shadow: 0 12px 30px var(--gold-glow); }
+    .vehicle-img-box { height: 210px; position: relative; overflow: hidden; background: #000; }
+    .vehicle-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .vehicle-card:hover .vehicle-img-box img { transform: scale(1.06); }
+    .status-badge { position: absolute; top: 12px; left: 12px; background: rgba(7,9,14,0.85); border: 1px solid var(--accent-gold); color: var(--accent-gold-bright); font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .vehicle-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .vehicle-brand { color: var(--accent-gold); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+    .vehicle-name { font-size: 1.25rem; color: #fff; font-weight: 700; margin: 4px 0 14px; }
+    .specs-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .chip { background: var(--bg-main); border: 1px solid rgba(255,255,255,0.08); color: var(--text-secondary); font-size: 0.78rem; padding: 4px 10px; border-radius: 6px; }
+    .vehicle-footer { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 14px; margin-top: auto; }
+    .vehicle-price { font-size: 1.3rem; font-weight: 800; color: var(--accent-gold-bright); }
+
+    .ml-layout { display: grid; grid-template-columns: 1.4fr 0.85fr; gap: 35px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .ml-gallery { display: flex; gap: 15px; }
+    .ml-thumbs { display: flex; flex-direction: column; gap: 10px; width: 85px; max-height: 480px; overflow-y: auto; flex-shrink: 0; }
+    .ml-thumb-item { width: 75px; height: 60px; border-radius: 6px; border: 1px solid var(--border-color); overflow: hidden; cursor: pointer; opacity: 0.6; transition: 0.2s; }
+    .ml-thumb-item.active, .ml-thumb-item:hover { opacity: 1; border-color: var(--accent-gold); transform: scale(1.03); }
+    .ml-thumb-item img { width: 100%; height: 100%; object-fit: cover; }
+    .ml-main-box { flex-grow: 1; height: 480px; background: #000; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; }
+    .ml-main-box img { width: 100%; height: 100%; object-fit: contain; }
+
+    .btn-whatsapp-full {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      background: var(--whatsapp-green); color: #fff; font-weight: 700; font-size: 1.05rem;
+      padding: 16px; border-radius: var(--radius-md); border: none; cursor: pointer; transition: 0.3s; width: 100%;
+      box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+    }
+    .btn-whatsapp-full:hover { background: var(--whatsapp-hover); transform: translateY(-2px); }
+
+    .main-specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 25px; }
+    .main-spec-box { background: var(--bg-card); border: 1px solid var(--border-color); padding: 14px 18px; border-radius: 10px; display: flex; flex-direction: column; gap: 4px; }
+    .main-spec-title { font-size: 0.78rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+    .main-spec-val { font-size: 1.05rem; color: #fff; font-weight: 700; }
+
+    .details-accordion { margin-top: 25px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+    .accordion-header { padding: 22px 30px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: var(--bg-card); transition: background 0.2s; }
+    .accordion-header:hover { background: var(--bg-card-hover); }
+    .accordion-header h3 { color: var(--accent-gold); font-size: 1.2rem; }
+    .arrow-icon { font-size: 1.2rem; color: var(--accent-gold); transition: transform 0.3s ease; }
+    .accordion-header.open .arrow-icon { transform: rotate(180deg); }
+    
+    .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out; background: var(--bg-main); padding: 0 30px; }
+    .accordion-body.open { max-height: 4000px; padding: 30px; border-top: 1px solid var(--border-color); }
+
+    .specs-section-title { font-size: 1.1rem; color: var(--accent-gold); margin: 20px 0 12px 0; font-weight: 700; border-bottom: 1px solid var(--border-color); padding-bottom: 6px; }
+    .specs-section-title:first-child { margin-top: 0; }
+
+    .specs-table-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-bottom: 25px; }
+    .spec-row { display: flex; justify-content: space-between; background: var(--bg-card); padding: 12px 16px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); }
+    .spec-label { color: var(--text-secondary); font-size: 0.85rem; }
+    .spec-val { color: #fff; font-weight: 600; font-size: 0.88rem; text-align: right; }
+
+    .card-panel { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 35px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+
+    .contact-container-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px; }
+    .contact-card-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+    .contact-info-item { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: 0.2s; }
+    .contact-info-item:hover { opacity: 0.85; transform: translateX(4px); }
+    .contact-info-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .contact-icon-box { background: var(--bg-main); border: 1px solid var(--border-color); width: 44px; height: 44px; border-radius: 10px; display: grid; place-items: center; flex-shrink: 0; color: var(--accent-gold); font-size: 1.2rem; }
+    .contact-info-content span { display: block; font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
+    .contact-info-content strong { color: #fff; font-size: 1.02rem; line-height: 1.5; font-weight: 500; }
+
+    .admin-page-view { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--bg-main); z-index: 3000; display: none; flex-direction: column; overflow-y: auto; }
+    .admin-page-header { background: var(--bg-card); border-bottom: 1px solid var(--border-color); padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
+    .admin-page-body { width: min(1300px, 94%); margin: 30px auto; flex-grow: 1; }
+
+    .admin-photos-grid { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    .admin-photo-thumb { position: relative; width: 75px; height: 60px; border-radius: 6px; border: 1px solid var(--border-color); overflow: hidden; }
+    .admin-photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .admin-photo-delete { position: absolute; top: 2px; right: 2px; background: var(--danger); color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 0.7rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+    footer { background: var(--bg-card); border-top: 1px solid var(--border-color); padding: 30px 0; margin-top: auto; font-size: 0.85rem; color: var(--text-secondary); }
+    .footer-flex { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+
+    @media (max-width: 850px) {
+      .nav-links { display: none; }
+      .control-grid { grid-template-columns: 1fr; }
+      .ml-layout { grid-template-columns: 1fr; }
+      .ml-gallery { flex-direction: column-reverse; }
+      .ml-thumbs { flex-direction: row; width: 100%; max-height: 80px; }
+      .ml-main-box { height: 320px; }
+      .contact-container-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav-wrapper">
+      <div class="brand-box" onclick="switchInterface('showroom')">
+        <img class="brand-logo" src="logo.png" alt="A.G Automotores" onerror="this.src='https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=150&q=80'">
+        <div class="brand-title">A.G <span>AUTOMOTORES</span></div>
+      </div>
+
+      <nav class="nav-links">
+        <span class="nav-item active" id="nav-showroom" onclick="switchInterface('showroom')">Vehículos</span>
+        <span class="nav-item" id="nav-financiacion" onclick="switchInterface('financiacion')">Financiación</span>
+        <span class="nav-item" id="nav-tasaciones" onclick="switchInterface('tasaciones')">Tasaciones</span>
+        <span class="nav-item" id="nav-contacto" onclick="switchInterface('contacto')">Contacto</span>
+      </nav>
+
+      <div class="header-right">
+        <div class="status-pill">
+          <div class="live-dot"></div>
+          <span>Abierto Ahora</span>
+        </div>
+        <button class="btn-gold" onclick="openWhatsAppGeneral()">WhatsApp ↗</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="view-page active" id="view-showroom">
+      <div class="hero-slider" id="heroSliderContainer"></div>
+
+      <div class="control-bar">
+        <div class="control-grid">
+          <div class="control-field">
+            <label>Buscar Vehículo</label>
+            <input type="text" id="searchInput" class="control-input" placeholder="Ej: RAM, Vento, Yamaha..." oninput="filterVehicles()">
+          </div>
+          <div class="control-field">
+            <label>Categoría</label>
+            <select id="typeSelect" class="control-select" onchange="filterVehicles()">
+              <option value="all">Todas</option>
+              <option value="Auto">Autos</option>
+              <option value="Camioneta">Camionetas</option>
+              <option value="Moto">Motos</option>
+            </select>
+          </div>
+          <div class="control-field">
+            <label>Combustible</label>
+            <select id="fuelSelect" class="control-select" onchange="filterVehicles()">
+              <option value="all">Todos</option>
+              <option value="Nafta">Nafta</option>
+              <option value="Diésel">Diésel</option>
+            </select>
+          </div>
+          <div class="control-field">
+            <label>Transmisión</label>
+            <select id="transSelect" class="control-select" onchange="filterVehicles()">
+              <option value="all">Todas</option>
+              <option value="Manual">Manual</option>
+              <option value="Automática">Automática</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="vehicle-grid" id="showroomGrid"></div>
+    </section>
+
+    <section class="view-page" id="view-detail">
+      <div style="margin-bottom:20px;">
+        <button class="btn-outline-gold" onclick="switchInterface('showroom')">← Volver a Vehículos</button>
+      </div>
+
+      <div class="ml-layout">
+        <div class="ml-gallery">
+          <div class="ml-thumbs" id="detailThumbs"></div>
+          <div class="ml-main-box">
+            <img id="detailMainImg" src="" alt="Foto Principal">
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:20px;">
+          <div>
+            <span id="detailYearKm" style="color:var(--text-secondary); font-size:0.85rem;">2020 | 100.000 km</span>
+            <h1 id="detailTitle" style="font-size:1.8rem; color:#fff; margin:6px 0;">RAM 1500</h1>
+            <div id="detailPrice" style="font-size:2.2rem; font-weight:800; color:var(--accent-gold-bright)">$ 48.000.000</div>
+          </div>
+
+          <div style="background:var(--bg-main); padding:18px; border-radius:var(--radius-md); border:1px solid var(--border-color);">
+            <strong style="color:var(--accent-gold); display:block; margin-bottom:4px;">Garantía y Documentación</strong>
+            <span style="color:var(--text-secondary); font-size:0.85rem;">Unidad peritada con verificación y papeles al día listos para transferir.</span>
+          </div>
+
+          <button class="btn-whatsapp-full" onclick="sendWhatsAppVehicle()">
+            Consultar Disponibilidad por WhatsApp
+          </button>
+        </div>
+      </div>
+
+      <div class="main-specs-grid" id="mainSpecsGrid"></div>
+
+      <div class="card-panel" style="margin-top:25px;">
+        <h3 style="color:var(--accent-gold); margin-bottom:12px;">Descripción General</h3>
+        <p id="detailDesc" style="color:var(--text-secondary); line-height:1.8; font-size:0.95rem;"></p>
+      </div>
+
+      <div class="details-accordion">
+        <div class="accordion-header" id="accordionToggle" onclick="toggleAccordion()">
+          <h3>Más detalles técnicos (Ficha completa) ⬇</h3>
+          <span class="arrow-icon">▼</span>
+        </div>
+        <div class="accordion-body" id="accordionBody">
+          <div id="extendedSpecsContent"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view-page" id="view-financiacion">
+      <div class="card-panel">
+        <h2 style="color:var(--accent-gold); margin-bottom:10px;">Planes de Financiación Prendaria</h2>
+        <p style="color:var(--text-secondary); line-height:1.7; margin-bottom:25px;">Retirá tu próximo vehículo con anticipo mínimo y cuotas fijas en pesos.</p>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
+          <div style="background:var(--bg-main); padding:20px; border-radius:var(--radius-md); border:1px solid var(--border-color);">
+            <h3 style="color:#fff; margin-bottom:8px;">Plan 50% Fijo</h3>
+            <p style="color:var(--text-secondary); font-size:0.9rem;">Financiá hasta el 50% del valor en 12, 24 o 36 cuotas fijas a sola firma.</p>
+          </div>
+          <div style="background:var(--bg-main); padding:20px; border-radius:var(--radius-md); border:1px solid var(--border-color);">
+            <h3 style="color:#fff; margin-bottom:8px;">Llave por Llave</h3>
+            <p style="color:var(--text-secondary); font-size:0.9rem;">Entregás tu usado como parte de pago y financiás la diferencia restante.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view-page" id="view-tasaciones">
+      <div class="card-panel">
+        <h2 style="color:var(--accent-gold); margin-bottom:10px;">Cotizá tu Usado al Instante</h2>
+        <p style="color:var(--text-secondary); line-height:1.7; margin-bottom:25px;">Ingresá los datos de tu vehículo para recibir una tasación estimada por WhatsApp.</p>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+          <input type="text" id="tradeBrand" class="control-input" placeholder="Marca y Modelo (Ej: RAM 1500 / Gol Trend)">
+          <input type="text" id="tradeYear" class="control-input" placeholder="Año (Ej: 2020)">
+          <input type="text" id="tradeKm" class="control-input" placeholder="Kilometraje aproximado">
+          <input type="text" id="tradeState" class="control-input" placeholder="Estado general">
+        </div>
+        <button class="btn-gold" style="margin-top:20px; width:100%;" onclick="sendWhatsAppTrade()">Solicitar Tasación por WhatsApp ↗</button>
+      </div>
+    </section>
+
+    <section class="view-page" id="view-contacto">
+      <div class="contact-container-grid">
+        <div class="contact-card-box">
+          <h2 style="color:var(--accent-gold); margin-bottom:25px; font-size:1.8rem;">Contacto & Ubicación</h2>
+          
+          <div class="contact-info-item" onclick="openGoogleMaps()">
+            <div class="contact-icon-box">🗺️</div>
+            <div class="contact-info-content">
+              <span>Ubicación en Google Maps (Clic para abrir)</span>
+              <strong id="info-address">La Rioja, Argentina</strong>
+            </div>
+          </div>
+
+          <div class="contact-info-item" onclick="openWhatsAppGeneral()">
+            <div class="contact-icon-box">🕒</div>
+            <div class="contact-info-content">
+              <span>Horarios de Atención</span>
+              <strong id="info-hours">Lunes a Sábado: 9:00 - 13:00 | 16:30 - 20:30</strong>
+            </div>
+          </div>
+
+          <div class="contact-info-item" onclick="openWhatsAppGeneral()">
+            <div class="contact-icon-box">💬</div>
+            <div class="contact-info-content">
+              <span>Teléfono / WhatsApp Directo</span>
+              <strong id="info-phone">+54 9 3804 37-4962</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-card-box" style="display:flex; flex-direction:column; justify-content:center; gap:20px; text-align:center;">
+          <div style="font-size:2rem; font-weight:800; color:var(--accent-gold); letter-spacing:0.1em;">AG</div>
+          <h3 style="color:#fff; font-size:1.4rem;">¿Querés coordinar una visita?</h3>
+          <p style="color:var(--text-secondary); font-size:0.95rem;">Comunicate directamente con nosotros por canales oficiales.</p>
+          
+          <div style="display:flex; flex-direction:column; gap:12px; margin-top:10px;">
+            <button class="btn-gold" style="justify-content:center; padding:14px;" onclick="openWhatsAppGeneral()">Abrir WhatsApp ↗</button>
+            <button class="btn-outline-gold" style="justify-content:center; padding:14px;" onclick="openInstagram()">Visitar Instagram ↗</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="admin-page-view" id="adminPageView">
+    <div class="admin-page-header">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="color:var(--accent-gold); font-size:1.5rem;">⚡</span>
+        <h2 style="color:var(--accent-gold);">Panel de Control Privado</h2>
+      </div>
+      <button class="btn-outline-gold" onclick="closeAdminPanel()">✕ Cerrar Panel Admin</button>
+    </div>
+
+    <div style="background:var(--bg-card); border-bottom:1px solid var(--border-color); padding:15px 40px; display:flex; gap:15px;">
+      <button class="admin-tab-custom active" id="tab-stock" onclick="switchAdminTab('stock', this)">📦 Gestión de Vehículos</button>
+      <button class="admin-tab-custom" id="tab-add" onclick="switchAdminTab('add', this)">➕ Agregar Nuevo</button>
+      <button class="admin-tab-custom" id="tab-config" onclick="switchAdminTab('config', this)">⚙️ Configuración y Cartelera</button>
+    </div>
+
+    <div class="admin-page-body" id="adminBodyContent"></div>
+  </div>
+
+  <footer>
+    <div class="container footer-flex">
+      <span>© <span id="year"></span> A.G AUTOMOTORES — Catálogo Seleccionado</span>
+      <div>
+        <span id="footer-address-text">La Rioja, Argentina</span>
+        <button style="background:none; border:none; color:var(--text-secondary); margin-left:15px; cursor:pointer;" onclick="openAdminPanel()">⚙️ Admin</button>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const defaultConfig = {
+      address: "Av. Principal 1234, La Rioja, Argentina",
+      hours: "Lun-Sáb: 9:00 - 13:00 | 16:30 - 20:30",
+      phone: "5493804374962",
+      instagram: "https://www.instagram.com/a.gautomotores/",
+      featuredIds: "c1, m1"
+    };
+
+    let config = JSON.parse(localStorage.getItem('ag_config_data')) || defaultConfig;
+
+    function saveConfigState() {
+      localStorage.setItem('ag_config_data', JSON.stringify(config));
+      applyConfigUI();
+      renderHeroSlider();
+    }
+
+    function applyConfigUI() {
+      document.getElementById('info-address').textContent = config.address;
+      document.getElementById('info-hours').textContent = config.hours;
+      document.getElementById('info-phone').textContent = "+54 9 3804 37-4962";
+      document.getElementById('footer-address-text').textContent = config.address;
+    }
+
+    function openGoogleMaps() {
+      const query = encodeURIComponent(config.address);
+      window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank');
+    }
+
+    const defaultVehicles = [
+      {
+        id: "c1", type: "Camioneta", brand: "RAM", model: "1500", year: 2020, version: "5.7 Laramie Atx V8",
+        km: "100.000 km", price: "$ 48.000.000", fuel: "Nafta", transmission: "Automática", doors: "4",
+        engineLiters: "5.7", bodyType: "Pick-Up", color: "Negro", status: "Disponible",
+        images: ["https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80"],
+        desc: "RAM 1500 Laramie V8 en impecable estado. Potencia y lujo al máximo.",
+        abs: "Sí", frontGuard: "Sí", airbag: "Sí", autoLights: "Sí", parkingSensor: "Sí", dualAirbag: "Sí",
+        rearFogLights: "Sí", rearDefroster: "Sí", stabilityCtrl: "Sí", ledBrake: "Sí",
+        centralLock: "Sí", asr: "Sí", backupCam: "Sí", alloys: "Sí", sunroof: "Sí",
+        spareSupport: "Sí", rearWiper: "Sí", roofRack: "Sí", traction: "4x4", capacity: "5",
+        power: "395 hp", wheelbase: "3.797 mm", tankCap: "98 L", valves: "2",
+        autopilot: "Sí", aircon: "Sí", onboardComp: "Sí", powerWindows: "Sí",
+        rainSensor: "Sí", trunkRelease: "Sí", steeringRemote: "Sí", cupholders: "Sí",
+        climate: "Sí", autoGlass: "Sí", amfm: "Sí", aux: "Sí", bluetooth: "Sí", cd: "Sí", dvd: "Sí", mp3: "Sí", usb: "Sí"
+      },
+      {
+        id: "m1", type: "Moto", brand: "Yamaha", model: "XTZ 250", year: 2026, version: "Enduro",
+        km: "0 km", price: "$ 14.500.000", fuel: "Nafta", transmission: "Manual", doors: "-",
+        engineLiters: "250 cc", bodyType: "Enduro", color: "Rojo", status: "Disponible",
+        images: ["https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80"],
+        desc: "Yamaha XTZ 250 0km. Impecable estado.",
+        motoType: "Enduro", power: "20,4 hp", uniqueOwner: "Sí", engineType: "4 tiempos",
+        speeds: "6", gps: "No", abs: "ABS", alarm: "No", tradeIn: "Sí", negotiable: "Sí"
+      }
+    ];
+
+    let vehicles = JSON.parse(localStorage.getItem('ag_vehicles_data')) || defaultVehicles;
+    let selectedVehicle = null;
+    let currentAdminTab = 'stock';
+    let tempUploadImages = [];
+
+    function saveVehiclesState() {
+      try {
+        localStorage.setItem('ag_vehicles_data', JSON.stringify(vehicles));
+        renderShowroom();
+        renderHeroSlider();
+        return true;
+      } catch (e) {
+        alert("⚠️ Las imágenes seleccionadas son demasiado pesadas o son demasiadas para la memoria del navegador. Intenta subir menos fotos a la vez o usa imágenes de menor peso.");
+        return false;
+      }
+    }
+
+    function switchInterface(interfaceId) {
+      document.querySelectorAll('.view-page').forEach(page => page.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+
+      const targetPage = document.getElementById(`view-${interfaceId}`);
+      if (targetPage) targetPage.classList.add('active');
+
+      const targetNav = document.getElementById(`nav-${interfaceId}`);
+      if (targetNav) targetNav.classList.add('active');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderHeroSlider() {
+      const sliderContainer = document.getElementById('heroSliderContainer');
+      const fIds = (config.featuredIds || "").split(',').map(s => s.trim()).filter(Boolean);
+      
+      let featuredList = vehicles.filter(v => fIds.includes(v.id));
+      if (featuredList.length === 0 && vehicles.length > 0) {
+        featuredList = [vehicles[0]];
+      }
+
+      sliderContainer.innerHTML = '';
+      featuredList.forEach((v, idx) => {
+        const slideImg = v.images && v.images.length ? v.images[0] : 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80';
+        const slideItem = document.createElement('div');
+        slideItem.className = `slide-item ${idx === 0 ? 'active' : ''}`;
+        slideItem.style.backgroundImage = `url('${slideImg}')`;
+        slideItem.innerHTML = `
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <span style="background:var(--accent-gold); color:#000; font-size:0.75rem; font-weight:800; padding:4px 10px; border-radius:4px; text-transform:uppercase; letter-spacing:0.05em;">Destacado</span>
+            <h1 style="font-size:2.5rem; color:#fff; margin:8px 0;">${v.brand} ${v.model}</h1>
+            <p style="color:var(--text-secondary); margin-bottom:15px;">Año ${v.year} · ${v.km} · ${v.price}</p>
+            <button class="btn-gold" onclick="openVehicleDetail('${v.id}')">Ver Ficha Completa ↗</button>
+          </div>
+        `;
+        sliderContainer.appendChild(slideItem);
+      });
+    }
+
+    // Rotación automática del banner principal cada 5 segundos
+    setInterval(() => {
+      const slides = document.querySelectorAll('#heroSliderContainer .slide-item');
+      if (slides.length <= 1) return;
+
+      let activeIndex = -1;
+      slides.forEach((slide, idx) => {
+        if (slide.classList.contains('active')) {
+          activeIndex = idx;
+        }
+        slide.classList.remove('active');
+      });
+
+      const nextIndex = (activeIndex + 1) % slides.length;
+      slides[nextIndex].classList.add('active');
+    }, 5000);
+
+    function renderShowroom() {
+      const grid = document.getElementById('showroomGrid');
+      grid.innerHTML = '';
+
+      vehicles.forEach(v => {
+        const card = document.createElement('div');
+        card.className = 'vehicle-card';
+        card.onclick = () => openVehicleDetail(v.id);
+
+        const img = v.images && v.images.length ? v.images[0] : 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80';
+
+        card.innerHTML = `
+          <div class="vehicle-img-box">
+            <span class="status-badge">${v.status} (${v.type || 'Auto'})</span>
+            <img src="${img}" alt="${v.model}">
+          </div>
+          <div class="vehicle-body">
+            <div>
+              <span class="vehicle-brand">${v.brand}</span>
+              <h3 class="vehicle-name">${v.model} ${v.version || ''}</h3>
+              <div class="specs-chips">
+                <span class="chip">Año: ${v.year}</span>
+                <span class="chip">KM: ${v.km}</span>
+                <span class="chip">Motor: ${v.engineLiters || v.engineType || 'N/D'}</span>
+              </div>
+            </div>
+            <div class="vehicle-footer">
+              <span class="vehicle-price">${v.price}</span>
+              <button class="btn-outline-gold" style="padding:6px 12px; font-size:0.78rem;">Ver Detalles</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterVehicles() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const type = document.getElementById('typeSelect').value;
+      const fuel = document.getElementById('fuelSelect').value;
+      const trans = document.getElementById('transSelect').value;
+
+      const cards = document.querySelectorAll('.vehicle-card');
+      vehicles.forEach((v, idx) => {
+        let match = true;
+        if (search && !v.model.toLowerCase().includes(search) && !v.brand.toLowerCase().includes(search) && !(v.version && v.version.toLowerCase().includes(search)) && !v.id.toLowerCase().includes(search)) match = false;
+        if (type !== 'all' && (v.type || 'Auto') !== type) match = false;
+        if (fuel !== 'all' && v.fuel !== fuel) match = false;
+        if (trans !== 'all' && v.transmission !== trans) match = false;
+
+        if (cards[idx]) cards[idx].style.display = match ? 'flex' : 'none';
+      });
+    }
+
+    function openVehicleDetail(id) {
+      selectedVehicle = vehicles.find(v => v.id === id);
+      if (!selectedVehicle) return;
+
+      document.getElementById('detailTitle').textContent = `${selectedVehicle.brand} ${selectedVehicle.model}`;
+      document.getElementById('detailYearKm').textContent = `${selectedVehicle.year} | ${selectedVehicle.km}`;
+      document.getElementById('detailPrice').textContent = selectedVehicle.price;
+      document.getElementById('detailDesc').textContent = selectedVehicle.desc || 'Sin descripción adicional.';
+
+      document.getElementById('accordionBody').classList.remove('open');
+      document.getElementById('accordionToggle').classList.remove('open');
+
+      const mainImg = document.getElementById('detailMainImg');
+      const thumbs = document.getElementById('detailThumbs');
+      thumbs.innerHTML = '';
+
+      const images = selectedVehicle.images && selectedVehicle.images.length ? selectedVehicle.images : ['https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80'];
+      mainImg.src = images[0];
+
+      images.forEach((imgSrc, idx) => {
+        const thumb = document.createElement('div');
+        thumb.className = `ml-thumb-item ${idx === 0 ? 'active' : ''}`;
+        thumb.onclick = () => {
+          document.querySelectorAll('.ml-thumb-item').forEach(t => t.classList.remove('active'));
+          thumb.classList.add('active');
+          mainImg.src = imgSrc;
+        };
+        thumb.innerHTML = `<img src="${imgSrc}">`;
+        thumbs.appendChild(thumb);
+      });
+
+      if (selectedVehicle.type === 'Moto') {
+        document.getElementById('mainSpecsGrid').innerHTML = `
+          <div class="main-spec-box"><span class="main-spec-title">Tipo</span><span class="main-spec-val">Moto</span></div>
+          <div class="main-spec-box"><span class="main-spec-title">Marca</span><span class="main-spec-val">${selectedVehicle.brand}</span></div>
+          <div class="main-spec-box"><span class="main-spec-title">Modelo</span><span class="main-spec-val">${selectedVehicle.model}</span></div>
+          <div class="main-spec-box"><span class="main-spec-title">Año</span><span class="main-spec-val">${selectedVehicle.year}</span></div>
+          <div class="main-spec-box"><span class="main-spec-title">Cilindrada</span><span class="main-spec-val">${selectedVehicle.engineLiters || '250 cc'}</span></div>
+          <div class="main-spec-box"><span class="main-spec-title">Potencia</span><span class="main-spec-val">${selectedVehicle.power || '20,4 hp'}</span></div>
+          <div class="main-spec-box"><span class="main-spec-title">Color</span><span class="main-spec-val">${selectedVehicle.color || 'Rojo'}</span></div>
+          <div class="main-spec-box"><span class="main-spec-title">Kilómetros</span><span class="main-spec-val">${selectedVehicle.km}</span></div>
+        `;
+
+        document.getElementById('extendedSpecsContent').innerHTML = `
+          <div class="specs-section-title">Principales</div>
+          <div class="specs-table-grid">
+            <div class="spec-row"><span class="spec-label">Tipo de moto</span><span class="spec-val">${selectedVehicle.motoType || 'Enduro'}</span></div>
+            <div class="spec-row"><span class="spec-label">Marca</span><span class="spec-val">${selectedVehicle.brand}</span></div>
+            <div class="spec-row"><span class="spec-label">Modelo</span><span class="spec-val">${selectedVehicle.model}</span></div>
+            <div class="spec-row"><span class="spec-label">Año</span><span class="spec-val">${selectedVehicle.year}</span></div>
+            <div class="spec-row"><span class="spec-label">Motor</span><span class="spec-val">${selectedVehicle.engineType || '4 tiempos'}</span></div>
+            <div class="spec-row"><span class="spec-label">Kilómetros</span><span class="spec-val">${selectedVehicle.km}</span></div>
+            <div class="spec-row"><span class="spec-label">Potencia</span><span class="spec-val">${selectedVehicle.power || '20,4 hp'}</span></div>
+            <div class="spec-row"><span class="spec-label">Cilindrada</span><span class="spec-val">${selectedVehicle.engineLiters || '250 cc'}</span></div>
+          </div>
+          <div class="specs-section-title">Información general</div>
+          <div class="specs-table-grid">
+            <div class="spec-row"><span class="spec-label">Color</span><span class="spec-val">${selectedVehicle.color || 'Rojo'}</span></div>
+            <div class="spec-row"><span class="spec-label">Tipo de combustible</span><span class="spec-val">${selectedVehicle.fuel || 'Nafta'}</span></div>
+            <div class="spec-row"><span class="spec-label">Transmisión</span><span class="spec-val">${selectedVehicle.transmission || 'Manual'}</span></div>
+            <div class="spec-row"><span class="spec-label">Numero de velocidades</span><span class="spec-val">${selectedVehicle.speeds || '6'}</span></div>
+            <div class="spec-row"><span class="spec-label">GPS</span><span class="spec-val">${selectedVehicle.gps || 'No'}</span></div>
+            <div class="spec-row"><span class="spec-label">Único dueño</span><span class="spec-val">${selectedVehicle.uniqueOwner || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Acepta permuta</span><span class="spec-val">${selectedVehicle.tradeIn || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Con precio negociable</span><span class="spec-val">${selectedVehicle.negotiable || 'Sí'}</span></div>
+          </div>
+          <div class="specs-section-title">Seguridad</div>
+          <div class="specs-table-grid">
+            <div class="spec-row"><span class="spec-label">Frenos</span><span class="spec-val">${selectedVehicle.abs || 'ABS'}</span></div>
+            <div class="spec-row"><span class="spec-label">Alarma</span><span class="spec-val">${selectedVehicle.alarm || 'No'}</span></div>
+          </div>
+        `;
+      } else {
+        document.getElementById('mainSpecsGrid').innerHTML = `
+          <div class="main-spec-box"><span class="main-spec-title">Tipo</span><span class="main-spec-val">${selectedVehicle.type}</span></div>
+          <div class="main-spec-box"><span class="main-spec-title">Marca</span><span class="main-spec-val">${selectedVehicle.brand}</span></div>
+          <div class="main-spec-box"><span class="main-spec-title">Modelo</span><span class="main-spec-val">${selectedVehicle.model}</span></div>
+          <div class="main-spec-box"><span class="main-spec-title">Año</span><span class="main-spec-val">${selectedVehicle.year}</span></div>
+          <div class="main-spec-box"><span class="main-spec-title">Versión</span><span class="main-spec-val">${selectedVehicle.version || 'N/D'}</span></div>
+          <div class="main-spec-box"><span class="main-spec-title">Color</span><span class="main-spec-val">${selectedVehicle.color || 'N/D'}</span></div>
+          <div class="main-spec-box"><span class="main-spec-title">Kilómetros</span><span class="main-spec-val">${selectedVehicle.km}</span></div>
+          <div class="main-spec-box"><span class="main-spec-title">Combustible</span><span class="main-spec-val">${selectedVehicle.fuel}</span></div>
+          <div class="main-spec-box"><span class="main-spec-title">Transmisión</span><span class="main-spec-val">${selectedVehicle.transmission}</span></div>
+          <div class="main-spec-box"><span class="main-spec-title">Motor</span><span class="main-spec-val">${selectedVehicle.engineLiters || 'N/D'}</span></div>
+          <div class="main-spec-box"><span class="main-spec-title">Carrocería</span><span class="main-spec-val">${selectedVehicle.bodyType || 'N/D'}</span></div>
+          <div class="main-spec-box"><span class="main-spec-title">Cámara Retroceso</span><span class="main-spec-val">${selectedVehicle.backupCam || 'Sí'}</span></div>
+        `;
+
+        document.getElementById('extendedSpecsContent').innerHTML = `
+          <div class="specs-section-title">Principales</div>
+          <div class="specs-table-grid">
+            <div class="spec-row"><span class="spec-label">Marca</span><span class="spec-val">${selectedVehicle.brand}</span></div>
+            <div class="spec-row"><span class="spec-label">Modelo</span><span class="spec-val">${selectedVehicle.model}</span></div>
+            <div class="spec-row"><span class="spec-label">Año</span><span class="spec-val">${selectedVehicle.year}</span></div>
+            <div class="spec-row"><span class="spec-label">Versión</span><span class="spec-val">${selectedVehicle.version || 'N/D'}</span></div>
+            <div class="spec-row"><span class="spec-label">Color</span><span class="spec-val">${selectedVehicle.color || 'N/D'}</span></div>
+            <div class="spec-row"><span class="spec-label">Kilómetros</span><span class="spec-val">${selectedVehicle.km}</span></div>
+            <div class="spec-row"><span class="spec-label">Tipo de combustible</span><span class="spec-val">${selectedVehicle.fuel}</span></div>
+            <div class="spec-row"><span class="spec-label">Puertas</span><span class="spec-val">${selectedVehicle.doors || '4'}</span></div>
+            <div class="spec-row"><span class="spec-label">Transmisión</span><span class="spec-val">${selectedVehicle.transmission}</span></div>
+            <div class="spec-row"><span class="spec-label">Motor</span><span class="spec-val">${selectedVehicle.engineLiters || 'N/D'}</span></div>
+            <div class="spec-row"><span class="spec-label">Tipo de carrocería</span><span class="spec-val">${selectedVehicle.bodyType || 'N/D'}</span></div>
+            <div class="spec-row"><span class="spec-label">Con cámara de retroceso</span><span class="spec-val">${selectedVehicle.backupCam || 'Sí'}</span></div>
+          </div>
+
+          <div class="specs-section-title">Seguridad</div>
+          <div class="specs-table-grid">
+            <div class="spec-row"><span class="spec-label">Frenos ABS</span><span class="spec-val">${selectedVehicle.abs || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Defensa delantera</span><span class="spec-val">${selectedVehicle.frontGuard || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Airbag conductor</span><span class="spec-val">${selectedVehicle.airbag || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Faros con regulación automática</span><span class="spec-val">${selectedVehicle.autoLights || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Sensor de estacionamiento</span><span class="spec-val">${selectedVehicle.parkingSensor || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Airbag para conductor y pasajero</span><span class="spec-val">${selectedVehicle.dualAirbag || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Faros antinieblas traseros</span><span class="spec-val">${selectedVehicle.rearFogLights || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Desempañador trasero</span><span class="spec-val">${selectedVehicle.rearDefroster || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Control de estabilidad</span><span class="spec-val">${selectedVehicle.stabilityCtrl || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Tercera luz de freno led</span><span class="spec-val">${selectedVehicle.ledBrake || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Cierre centralizado de puertas</span><span class="spec-val">${selectedVehicle.centralLock || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Tracción ASR</span><span class="spec-val">${selectedVehicle.asr || 'Sí'}</span></div>
+          </div>
+
+          <div class="specs-section-title">Rendimiento y dimensiones</div>
+          <div class="specs-table-grid">
+            <div class="spec-row"><span class="spec-label">Control de tracción</span><span class="spec-val">${selectedVehicle.traction || '4x4'}</span></div>
+            <div class="spec-row"><span class="spec-label">Capacidad de personas</span><span class="spec-val">${selectedVehicle.capacity || '5'}</span></div>
+            <div class="spec-row"><span class="spec-label">Potencia</span><span class="spec-val">${selectedVehicle.power || '395 hp'}</span></div>
+            <div class="spec-row"><span class="spec-label">Distancia entre ejes</span><span class="spec-val">${selectedVehicle.wheelbase || '3.797 mm'}</span></div>
+            <div class="spec-row"><span class="spec-label">Capacidad del tanque</span><span class="spec-val">${selectedVehicle.tankCap || '98 L'}</span></div>
+            <div class="spec-row"><span class="spec-label">Válvulas por cilindro</span><span class="spec-val">${selectedVehicle.valves || '2'}</span></div>
+          </div>
+
+          <div class="specs-section-title">Exterior</div>
+          <div class="specs-table-grid">
+            <div class="spec-row"><span class="spec-label">Llantas de aleación</span><span class="spec-val">${selectedVehicle.alloys || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Techo solar eléctrico retráctil</span><span class="spec-val">${selectedVehicle.sunroof || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Soporte para rueda de auxilio</span><span class="spec-val">${selectedVehicle.spareSupport || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Limpia/lava luneta</span><span class="spec-val">${selectedVehicle.rearWiper || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Porta equipaje en techo</span><span class="spec-val">${selectedVehicle.roofRack || 'Sí'}</span></div>
+          </div>
+
+          <div class="specs-section-title">Confort y conveniencia</div>
+          <div class="specs-table-grid">
+            <div class="spec-row"><span class="spec-label">Piloto automático</span><span class="spec-val">${selectedVehicle.autopilot || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Aire acondicionado</span><span class="spec-val">${selectedVehicle.aircon || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Computadora de abordo</span><span class="spec-val">${selectedVehicle.onboardComp || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Cristales eléctricos</span><span class="spec-val">${selectedVehicle.powerWindows || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Sensor de lluvia</span><span class="spec-val">${selectedVehicle.rainSensor || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Apertura remota de baúl</span><span class="spec-val">${selectedVehicle.trunkRelease || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Comando remoto para radio en el volante</span><span class="spec-val">${selectedVehicle.steeringRemote || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Porta vasos</span><span class="spec-val">${selectedVehicle.cupholders || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Climatizador</span><span class="spec-val">${selectedVehicle.climate || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Cierre automático de vidrios</span><span class="spec-val">${selectedVehicle.autoGlass || 'Sí'}</span></div>
+          </div>
+
+          <div class="specs-section-title">Entretenimiento</div>
+          <div class="specs-table-grid">
+            <div class="spec-row"><span class="spec-label">AM/FM</span><span class="spec-val">${selectedVehicle.amfm || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Entrada auxiliar</span><span class="spec-val">${selectedVehicle.aux || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Bluetooth</span><span class="spec-val">${selectedVehicle.bluetooth || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">CD</span><span class="spec-val">${selectedVehicle.cd || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">DVD</span><span class="spec-val">${selectedVehicle.dvd || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Reproductor de MP3</span><span class="spec-val">${selectedVehicle.mp3 || 'Sí'}</span></div>
+            <div class="spec-row"><span class="spec-label">Entrada USB</span><span class="spec-val">${selectedVehicle.usb || 'Sí'}</span></div>
+          </div>
+        `;
+      }
+
+      switchInterface('detail');
+    }
+
+    function toggleAccordion() {
+      const body = document.getElementById('accordionBody');
+      const header = document.getElementById('accordionToggle');
+      body.classList.toggle('open');
+      header.classList.toggle('open');
+    }
+
+    function openWhatsAppGeneral() { window.open(`https://wa.me/5493804374962`, '_blank'); }
+    function openInstagram() { window.open(config.instagram, '_blank'); }
+
+    function sendWhatsAppVehicle() {
+      if (!selectedVehicle) return;
+      const msg = `Hola! Quisiera consultar disponibilidad por el *${selectedVehicle.brand} ${selectedVehicle.model}* (${selectedVehicle.year}) a ${selectedVehicle.price}.`;
+      window.open(`https://wa.me/5493804374962?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function sendWhatsAppTrade() {
+      const b = document.getElementById('tradeBrand').value;
+      const y = document.getElementById('tradeYear').value;
+      const k = document.getElementById('tradeKm').value;
+      const s = document.getElementById('tradeState').value;
+      if (!b) return alert("Ingresá al menos la marca y modelo.");
+      
+      // Mensaje plano sin asteriscos ni guiones molestos para que no falle en WhatsApp
+      const msg = `Hola! Quisiera cotizar mi vehículo para permuta:\nUnidad: ${b}\nAño: ${y}\nKM: ${k}\nEstado: ${s}`;
+      
+      window.open(`https://wa.me/5493804374962?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function openAdminPanel() {
+      const pass = prompt("🔐 Clave de Administrador:");
+      if (pass !== "4212") return alert("Clave incorrecta.");
+      renderAdminContent();
+      document.getElementById('adminPageView').style.display = 'flex';
+    }
+
+    function closeAdminPanel() { document.getElementById('adminPageView').style.display = 'none'; }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault(); openAdminPanel();
+      }
+    });
+
+    function switchAdminTab(tab, btn) {
+      currentAdminTab = tab;
+      document.querySelectorAll('.admin-tab-custom').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderAdminContent();
+    }
+
+    function renderAdminContent() {
+      const body = document.getElementById('adminBodyContent');
+      body.innerHTML = '';
+
+      if (currentAdminTab === 'stock') {
+        vehicles.forEach((v, vIdx) => {
+          let photosHTML = '';
+          v.images.forEach((img, imgIdx) => {
+            photosHTML += `
+              <div class="admin-photo-thumb">
+                <img src="${img}">
+                <button class="admin-photo-delete" onclick="deleteCarImage(${vIdx}, ${imgIdx})">✕</button>
+              </div>
+            `;
+          });
+
+          const card = document.createElement('div');
+          card.style.cssText = "background:var(--bg-card); padding:20px; border-radius:10px; border:1px solid var(--border-color); margin-bottom:15px;";
+          card.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
+              <strong style="color:var(--accent-gold); font-size:1.1rem;">[${v.type || 'Auto'}] ${v.brand} ${v.model} (${v.year}) - ${v.price}</strong>
+              <div style="display:flex; gap:10px;">
+                <button class="btn-outline-gold" style="padding:8px 16px; font-size:0.85rem;" onclick="openEditModal(${vIdx})">✏️ Editar Ficha</button>
+                <button style="background:var(--danger); color:#fff; border:none; padding:8px 16px; border-radius:6px; cursor:pointer; font-weight:600;" onclick="deleteVehicle(${vIdx})">Borrar</button>
+              </div>
+            </div>
+            <div style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:6px;">Fotografías:</div>
+            <div class="admin-photos-grid">${photosHTML}
+              <label style="background:var(--bg-main); border:1px dashed var(--accent-gold); padding:10px 16px; border-radius:6px; cursor:pointer; font-size:0.8rem; color:var(--text-primary); display:grid; place-items:center;">+ Añadir Foto
+                <input type="file" accept="image/*" style="display:none;" onchange="addCarImage(${vIdx}, this)">
+              </label>
+            </div>
+          `;
+          body.appendChild(card);
+        });
+      } else if (currentAdminTab === 'add') {
+        tempUploadImages = [];
+        body.innerHTML = `
+          <div style="background:var(--bg-card); padding:30px; border-radius:10px; border:1px solid var(--border-color);">
+            <h3 style="color:var(--accent-gold); margin-bottom:20px;">➕ Publicar Nuevo Producto</h3>
+            
+            <div style="margin-bottom:20px;">
+              <label style="font-size:0.85rem; color:var(--accent-gold); font-weight:700; display:block; margin-bottom:6px;">Seleccionar Categoría del Producto:</label>
+              <select id="add-type" class="control-select" onchange="toggleAddFields(this.value)">
+                <option value="Auto">Auto</option>
+                <option value="Camioneta">Camioneta</option>
+                <option value="Moto">Moto</option>
+              </select>
+            </div>
+
+            <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:15px;">
+              <div><label style="font-size:0.75rem; color:var(--text-secondary)">ID Corto (Ej: c2, m2)</label><input id="add-id" class="control-input" placeholder="c2"></div>
+              <div><label style="font-size:0.75rem; color:var(--text-secondary)">Marca</label><input id="add-brand" class="control-input" placeholder="Ej: Volkswagen / RAM"></div>
+              <div><label style="font-size:0.75rem; color:var(--text-secondary)">Modelo</label><input id="add-model" class="control-input" placeholder="Ej: Vento / 1500"></div>
+              <div><label style="font-size:0.75rem; color:var(--text-secondary)">Año</label><input id="add-year" class="control-input" placeholder="2020"></div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:20px;">
+              <div><label style="font-size:0.75rem; color:var(--text-secondary)">Versión</label><input id="add-version" class="control-input" placeholder="Ej: 2.0 Highline"></div>
+              <div><label style="font-size:0.75rem; color:var(--text-secondary)">Color</label><input id="add-color" class="control-input" placeholder="Blanco / Negro"></div>
+              <div><label style="font-size:0.75rem; color:var(--text-secondary)">Kilómetros</label><input id="add-km" class="control-input" placeholder="50.000 km"></div>
+              <div><label style="font-size:0.75rem; color:var(--text-secondary)">Precio</label><input id="add-price" class="control-input" placeholder="$ 25.000.000"></div>
+            </div>
+
+            <div id="dynamicFieldsContainer"></div>
+
+            <div style="margin-bottom:20px; margin-top:20px;">
+              <label style="font-size:0.8rem; color:var(--text-secondary); display:block; margin-bottom:6px;">Imágenes (Subí una o varias fotos comprimidas):</label>
+              <input type="file" multiple accept="image/*" class="control-input" onchange="handleMultipleUpload(this)">
+              <div class="admin-photos-grid" id="add-preview-grid"></div>
+            </div>
+
+            <div style="margin-bottom:20px;">
+              <label style="font-size:0.75rem; color:var(--text-secondary)">Descripción General</label>
+              <textarea id="add-desc" class="control-input" style="height:90px;" placeholder="Descripción completa..."></textarea>
+            </div>
+
+            <button class="btn-gold" style="width:100%; padding:14px; font-size:1rem;" onclick="saveNewCar()">Publicar Producto</button>
+          </div>
+        `;
+        toggleAddFields('Auto');
+      } else if (currentAdminTab === 'config') {
+        body.innerHTML = `
+          <div style="background:var(--bg-card); padding:30px; border-radius:10px; border:1px solid var(--border-color); max-width:700px;">
+            <h3 style="color:var(--accent-gold); margin-bottom:20px;">⚙️ Configuración y Gestión de Cartelera</h3>
+            <div style="display:flex; flex-direction:column; gap:20px;">
+              <div>
+                <label style="font-size:0.8rem; color:var(--text-secondary);">IDs Cortos de Productos en Cartelera (Separados por comas, ej: c1, m1):</label>
+                <input id="cfg-featured" class="control-input" value="${config.featuredIds || ''}" placeholder="c1, m1">
+                <small style="color:var(--text-secondary); display:block; margin-top:4px;">Escribe aquí los códigos cortos de los vehículos que quieras mostrar en grande en el banner principal.</small>
+              </div>
+              <hr style="border-color:var(--border-color);">
+              <div>
+                <label style="font-size:0.8rem; color:var(--text-secondary);">Dirección Física (Google Maps):</label>
+                <input id="cfg-address" class="control-input" value="${config.address}">
+              </div>
+              <div>
+                <label style="font-size:0.8rem; color:var(--text-secondary);">Horarios de Atención:</label>
+                <input id="cfg-hours" class="control-input" value="${config.hours}">
+              </div>
+              <div>
+                <label style="font-size:0.8rem; color:var(--text-secondary);">WhatsApp:</label>
+                <input id="cfg-phone" class="control-input" value="${config.phone}">
+              </div>
+              <div>
+                <label style="font-size:0.8rem; color:var(--text-secondary);">Instagram:</label>
+                <input id="cfg-insta" class="control-input" value="${config.instagram}">
+              </div>
+              <button class="btn-gold" style="margin-top:10px;" onclick="saveConfigFromAdmin()">Guardar Configuración y Cartelera</button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function toggleAddFields(type, vData = null) {
+      const container = document.getElementById('dynamicFieldsContainer');
+      if (!container) return;
+
+      if (type === 'Moto') {
+        container.innerHTML = `
+          <h4 style="color:#fff; margin-bottom:10px; font-size:0.95rem; border-bottom:1px solid var(--border-color); padding-bottom:5px;">Ficha Técnica Específica para Moto</h4>
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:15px;">
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Tipo de moto</label><input id="add-motoType" class="control-input" value="${vData?.motoType || 'Enduro'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Cilindrada (cc)</label><input id="add-engine" class="control-input" value="${vData?.engineLiters || '250 cc'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Motor</label><input id="add-engineType" class="control-input" value="${vData?.engineType || '4 tiempos'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Potencia</label><input id="add-power" class="control-input" value="${vData?.power || '20,4 hp'}"></div>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:15px;">
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Velocidades</label><input id="add-speeds" class="control-input" value="${vData?.speeds || '6'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Transmisión</label><input id="add-trans" class="control-input" value="${vData?.transmission || 'Manual'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Frenos</label><input id="add-abs" class="control-input" value="${vData?.abs || 'ABS'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">GPS</label><input id="add-gps" class="control-input" value="${vData?.gps || 'No'}"></div>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:20px;">
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Combustible</label><input id="add-fuel" class="control-input" value="${vData?.fuel || 'Nafta'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Puertas</label><input id="add-doors" class="control-input" value="${vData?.doors || '4'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Transmisión</label><input id="add-trans" class="control-input" value="${vData?.transmission || 'Automática'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Motor (L)</label><input id="add-engine" class="control-input" value="${vData?.engineLiters || '2.0'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Carrocería</label><input id="add-body" class="control-input" value="${vData?.bodyType || 'Sedán'}"></div>
+          </div>
+
+          <h4 style="color:#fff; margin-bottom:10px; font-size:0.95rem; border-bottom:1px solid var(--border-color); padding-bottom:5px;">Seguridad (Autos y Camionetas)</h4>
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:20px;">
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Frenos ABS</label><input id="add-abs" class="control-input" value="${vData?.abs || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Defensa delantera</label><input id="add-frontGuard" class="control-input" value="${vData?.frontGuard || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Airbag conductor</label><input id="add-airbag" class="control-input" value="${vData?.airbag || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Faros regulación auto.</label><input id="add-autoLights" class="control-input" value="${vData?.autoLights || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Sensor estacionamiento</label><input id="add-parkingSensor" class="control-input" value="${vData?.parkingSensor || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Airbag pasajero</label><input id="add-dualAirbag" class="control-input" value="${vData?.dualAirbag || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Faros antinieblas</label><input id="add-rearFogLights" class="control-input" value="${vData?.rearFogLights || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Desempañador trasero</label><input id="add-rearDefroster" class="control-input" value="${vData?.rearDefroster || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Control estabilidad</label><input id="add-stabilityCtrl" class="control-input" value="${vData?.stabilityCtrl || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Tercera luz freno led</label><input id="add-ledBrake" class="control-input" value="${vData?.ledBrake || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Cierre centralizado</label><input id="add-centralLock" class="control-input" value="${vData?.centralLock || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Tracción ASR</label><input id="add-asr" class="control-input" value="${vData?.asr || 'Sí'}"></div>
+          </div>
+
+          <h4 style="color:#fff; margin-bottom:10px; font-size:0.95rem; border-bottom:1px solid var(--border-color); padding-bottom:5px;">Rendimiento y Dimensiones</h4>
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:20px;">
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Control tracción</label><input id="add-traction" class="control-input" value="${vData?.traction || 'Delantera'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Capacidad personas</label><input id="add-capacity" class="control-input" value="${vData?.capacity || '5'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Potencia</label><input id="add-power" class="control-input" value="${vData?.power || '150 hp'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Distancia ejes</label><input id="add-wheelbase" class="control-input" value="${vData?.wheelbase || '2.650 mm'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Capacidad tanque</label><input id="add-tankCap" class="control-input" value="${vData?.tankCap || '55 L'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Válvulas cilindro</label><input id="add-valves" class="control-input" value="${vData?.valves || '4'}"></div>
+          </div>
+
+          <h4 style="color:#fff; margin-bottom:10px; font-size:0.95rem; border-bottom:1px solid var(--border-color); padding-bottom:5px;">Exterior</h4>
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:20px;">
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Llantas aleación</label><input id="add-alloys" class="control-input" value="${vData?.alloys || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Techo solar</label><input id="add-sunroof" class="control-input" value="${vData?.sunroof || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Soporte rueda auxilio</label><input id="add-spareSupport" class="control-input" value="${vData?.spareSupport || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Limpia/lava luneta</label><input id="add-rearWiper" class="control-input" value="${vData?.rearWiper || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Porta equipaje</label><input id="add-roofRack" class="control-input" value="${vData?.roofRack || 'Sí'}"></div>
+          </div>
+
+          <h4 style="color:#fff; margin-bottom:10px; font-size:0.95rem; border-bottom:1px solid var(--border-color); padding-bottom:5px;">Confort y Conveniencia</h4>
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:20px;">
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Piloto automático</label><input id="add-autopilot" class="control-input" value="${vData?.autopilot || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Aire acondicionado</label><input id="add-aircon" class="control-input" value="${vData?.aircon || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Computadora abordo</label><input id="add-onboardComp" class="control-input" value="${vData?.onboardComp || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Cristales eléctricos</label><input id="add-powerWindows" class="control-input" value="${vData?.powerWindows || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Sensor lluvia</label><input id="add-rainSensor" class="control-input" value="${vData?.rainSensor || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Apertura remota baúl</label><input id="add-trunkRelease" class="control-input" value="${vData?.trunkRelease || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Comando radio volante</label><input id="add-steeringRemote" class="control-input" value="${vData?.steeringRemote || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Porta vasos</label><input id="add-cupholders" class="control-input" value="${vData?.cupholders || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Climatizador</label><input id="add-climate" class="control-input" value="${vData?.climate || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Cierre automático vidrios</label><input id="add-autoGlass" class="control-input" value="${vData?.autoGlass || 'Sí'}"></div>
+          </div>
+
+          <h4 style="color:#fff; margin-bottom:10px; font-size:0.95rem; border-bottom:1px solid var(--border-color); padding-bottom:5px;">Entretenimiento</h4>
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:20px;">
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">AM/FM</label><input id="add-amfm" class="control-input" value="${vData?.amfm || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Entrada auxiliar</label><input id="add-aux" class="control-input" value="${vData?.aux || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Bluetooth</label><input id="add-bluetooth" class="control-input" value="${vData?.bluetooth || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">CD</label><input id="add-cd" class="control-input" value="${vData?.cd || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">DVD</label><input id="add-dvd" class="control-input" value="${vData?.dvd || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Reproductor MP3</label><input id="add-mp3" class="control-input" value="${vData?.mp3 || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Entrada USB</label><input id="add-usb" class="control-input" value="${vData?.usb || 'Sí'}"></div>
+          </div>
+        `;
+      }
+    }
+
+    function openEditModal(vIdx) {
+      const v = vehicles[vIdx];
+      const body = document.getElementById('adminBodyContent');
+      body.innerHTML = `
+        <div style="background:var(--bg-card); padding:30px; border-radius:10px; border:1px solid var(--border-color);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h3 style="color:var(--accent-gold);">✏️ Editando Ficha Completa: ${v.brand} ${v.model}</h3>
+            <button class="btn-outline-gold" style="padding:6px 14px;" onclick="switchAdminTab('stock', document.getElementById('tab-stock'))">← Volver</button>
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:15px;">
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">ID Corto</label><input id="edit-id" class="control-input" value="${v.id}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Tipo</label><select id="edit-type" class="control-select" onchange="toggleEditFields(this.value)"><option value="Auto" ${v.type==='Auto'?'selected':''}>Auto</option><option value="Camioneta" ${v.type==='Camioneta'?'selected':''}>Camioneta</option><option value="Moto" ${v.type==='Moto'?'selected':''}>Moto</option></select></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Marca</label><input id="edit-brand" class="control-input" value="${v.brand}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Modelo</label><input id="edit-model" class="control-input" value="${v.model}"></div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:20px;">
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Año</label><input id="edit-year" class="control-input" value="${v.year}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Kilómetros</label><input id="edit-km" class="control-input" value="${v.km}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Precio</label><input id="edit-price" class="control-input" value="${v.price}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Color</label><input id="edit-color" class="control-input" value="${v.color || ''}"></div>
+          </div>
+
+          <div id="editDynamicFieldsContainer"></div>
+
+          <div style="margin-bottom:20px; margin-top:20px;">
+            <label style="font-size:0.75rem; color:var(--text-secondary)">Descripción General</label>
+            <textarea id="edit-desc" class="control-input" style="height:90px;">${v.desc || ''}</textarea>
+          </div>
+
+          <button class="btn-gold" style="width:100%; padding:14px; font-size:1rem;" onclick="saveEditedCar(${vIdx})">💾 Guardar Todos los Cambios</button>
+        </div>
+      `;
+      toggleEditFields(v.type || 'Auto', v);
+    }
+
+    function toggleEditFields(type, v = {}) {
+      const container = document.getElementById('editDynamicFieldsContainer');
+      if (!container) return;
+
+      if (type === 'Moto') {
+        container.innerHTML = `
+          <h4 style="color:#fff; margin-bottom:10px; font-size:0.95rem; border-bottom:1px solid var(--border-color); padding-bottom:5px;">Ficha de Moto</h4>
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:15px;">
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Tipo moto</label><input id="edit-motoType" class="control-input" value="${v.motoType || 'Enduro'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Cilindrada</label><input id="edit-engine" class="control-input" value="${v.engineLiters || '250 cc'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Motor</label><input id="edit-engineType" class="control-input" value="${v.engineType || '4 tiempos'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Potencia</label><input id="edit-power" class="control-input" value="${v.power || '20,4 hp'}"></div>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:15px;">
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Combustible</label><input id="edit-fuel" class="control-input" value="${v.fuel || 'Nafta'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Transmisión</label><input id="edit-trans" class="control-input" value="${v.transmission || 'Automática'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Motor (L)</label><input id="edit-engine" class="control-input" value="${v.engineLiters || '2.0'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Carrocería</label><input id="edit-body" class="control-input" value="${v.bodyType || 'Sedán'}"></div>
+          </div>
+
+          <h4 style="color:#fff; margin-bottom:10px; font-size:0.95rem; border-bottom:1px solid var(--border-color); padding-bottom:5px;">Seguridad</h4>
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:20px;">
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Frenos ABS</label><input id="edit-abs" class="control-input" value="${v.abs || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Defensa delantera</label><input id="edit-frontGuard" class="control-input" value="${v.frontGuard || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Airbag conductor</label><input id="edit-airbag" class="control-input" value="${v.airbag || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Faros regulación auto.</label><input id="edit-autoLights" class="control-input" value="${v.autoLights || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Sensor estacionamiento</label><input id="edit-parkingSensor" class="control-input" value="${v.parkingSensor || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Airbag pasajero</label><input id="edit-dualAirbag" class="control-input" value="${v.dualAirbag || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Faros antinieblas</label><input id="edit-rearFogLights" class="control-input" value="${v.rearFogLights || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Desempañador trasero</label><input id="edit-rearDefroster" class="control-input" value="${v.rearDefroster || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Control estabilidad</label><input id="edit-stabilityCtrl" class="control-input" value="${v.stabilityCtrl || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Tercera luz freno led</label><input id="edit-ledBrake" class="control-input" value="${v.ledBrake || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Cierre centralizado</label><input id="edit-centralLock" class="control-input" value="${v.centralLock || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Tracción ASR</label><input id="edit-asr" class="control-input" value="${v.asr || 'Sí'}"></div>
+          </div>
+
+          <h4 style="color:#fff; margin-bottom:10px; font-size:0.95rem; border-bottom:1px solid var(--border-color); padding-bottom:5px;">Rendimiento y Dimensiones</h4>
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:20px;">
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Control tracción</label><input id="edit-traction" class="control-input" value="${v.traction || 'Delantera'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Capacidad personas</label><input id="edit-capacity" class="control-input" value="${v.capacity || '5'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Potencia</label><input id="edit-power" class="control-input" value="${v.power || '150 hp'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Distancia ejes</label><input id="edit-wheelbase" class="control-input" value="${v.wheelbase || '2.650 mm'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Capacidad tanque</label><input id="edit-tankCap" class="control-input" value="${v.tankCap || '55 L'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Válvulas cilindro</label><input id="edit-valves" class="control-input" value="${v.valves || '4'}"></div>
+          </div>
+
+          <h4 style="color:#fff; margin-bottom:10px; font-size:0.95rem; border-bottom:1px solid var(--border-color); padding-bottom:5px;">Exterior</h4>
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:20px;">
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Llantas aleación</label><input id="edit-alloys" class="control-input" value="${v.alloys || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Techo solar</label><input id="edit-sunroof" class="control-input" value="${v.sunroof || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Soporte rueda auxilio</label><input id="edit-spareSupport" class="control-input" value="${v.spareSupport || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Limpia/lava luneta</label><input id="edit-rearWiper" class="control-input" value="${v.rearWiper || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Porta equipaje</label><input id="edit-roofRack" class="control-input" value="${v.roofRack || 'Sí'}"></div>
+          </div>
+
+          <h4 style="color:#fff; margin-bottom:10px; font-size:0.95rem; border-bottom:1px solid var(--border-color); padding-bottom:5px;">Confort y Conveniencia</h4>
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:20px;">
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Piloto automático</label><input id="edit-autopilot" class="control-input" value="${v.autopilot || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Aire acondicionado</label><input id="edit-aircon" class="control-input" value="${v.aircon || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Computadora abordo</label><input id="edit-onboardComp" class="control-input" value="${v.onboardComp || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Cristales eléctricos</label><input id="edit-powerWindows" class="control-input" value="${v.powerWindows || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Sensor lluvia</label><input id="edit-rainSensor" class="control-input" value="${v.rainSensor || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Apertura remota baúl</label><input id="edit-trunkRelease" class="control-input" value="${v.trunkRelease || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Comando radio volante</label><input id="edit-steeringRemote" class="control-input" value="${v.steeringRemote || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Porta vasos</label><input id="edit-cupholders" class="control-input" value="${v.cupholders || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Climatizador</label><input id="edit-climate" class="control-input" value="${v.climate || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Cierre automático vidrios</label><input id="edit-autoGlass" class="control-input" value="${v.autoGlass || 'Sí'}"></div>
+          </div>
+
+          <h4 style="color:#fff; margin-bottom:10px; font-size:0.95rem; border-bottom:1px solid var(--border-color); padding-bottom:5px;">Entretenimiento</h4>
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:20px;">
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">AM/FM</label><input id="edit-amfm" class="control-input" value="${v.amfm || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Entrada auxiliar</label><input id="edit-aux" class="control-input" value="${v.aux || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Bluetooth</label><input id="edit-bluetooth" class="control-input" value="${v.bluetooth || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">CD</label><input id="edit-cd" class="control-input" value="${v.cd || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">DVD</label><input id="edit-dvd" class="control-input" value="${v.dvd || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Reproductor MP3</label><input id="edit-mp3" class="control-input" value="${v.mp3 || 'Sí'}"></div>
+            <div><label style="font-size:0.75rem; color:var(--text-secondary)">Entrada USB</label><input id="edit-usb" class="control-input" value="${v.usb || 'Sí'}"></div>
+          </div>
+        `;
+      }
+    }
+
+    function saveEditedCar(vIdx) {
+      const type = document.getElementById('edit-type').value;
+      vehicles[vIdx].id = document.getElementById('edit-id').value;
+      vehicles[vIdx].type = type;
+      vehicles[vIdx].brand = document.getElementById('edit-brand').value;
+      vehicles[vIdx].model = document.getElementById('edit-model').value;
+      vehicles[vIdx].year = document.getElementById('edit-year').value;
+      vehicles[vIdx].km = document.getElementById('edit-km').value;
+      vehicles[vIdx].price = document.getElementById('edit-price').value;
+      vehicles[vIdx].color = document.getElementById('edit-color').value;
+
+      if (type === 'Moto') {
+        vehicles[vIdx].motoType = document.getElementById('edit-motoType')?.value || "Enduro";
+        vehicles[vIdx].engineLiters = document.getElementById('edit-engine')?.value || "250 cc";
+        vehicles[vIdx].engineType = document.getElementById('edit-engineType')?.value || "4 tiempos";
+        vehicles[vIdx].power = document.getElementById('edit-power')?.value || "20,4 hp";
+      } else {
+        vehicles[vIdx].fuel = document.getElementById('edit-fuel')?.value || "Nafta";
+        vehicles[vIdx].transmission = document.getElementById('edit-trans')?.value || "Automática";
+        vehicles[vIdx].engineLiters = document.getElementById('edit-engine')?.value || "2.0";
+        vehicles[vIdx].bodyType = document.getElementById('edit-body')?.value || "Sedán";
+
+        vehicles[vIdx].abs = document.getElementById('edit-abs')?.value || "Sí";
+        vehicles[vIdx].frontGuard = document.getElementById('edit-frontGuard')?.value || "Sí";
+        vehicles[vIdx].airbag = document.getElementById('edit-airbag')?.value || "Sí";
+        vehicles[vIdx].autoLights = document.getElementById('edit-autoLights')?.value || "Sí";
+        vehicles[vIdx].parkingSensor = document.getElementById('edit-parkingSensor')?.value || "Sí";
+        vehicles[vIdx].dualAirbag = document.getElementById('edit-dualAirbag')?.value || "Sí";
+        vehicles[vIdx].rearFogLights = document.getElementById('edit-rearFogLights')?.value || "Sí";
+        vehicles[vIdx].rearDefroster = document.getElementById('edit-rearDefroster')?.value || "Sí";
+        vehicles[vIdx].stabilityCtrl = document.getElementById('edit-stabilityCtrl')?.value || "Sí";
+        vehicles[vIdx].ledBrake = document.getElementById('edit-ledBrake')?.value || "Sí";
+        vehicles[vIdx].centralLock = document.getElementById('edit-centralLock')?.value || "Sí";
+        vehicles[vIdx].asr = document.getElementById('edit-asr')?.value || "Sí";
+
+        vehicles[vIdx].traction = document.getElementById('edit-traction')?.value || "Delantera";
+        vehicles[vIdx].capacity = document.getElementById('edit-capacity')?.value || "5";
+        vehicles[vIdx].power = document.getElementById('edit-power')?.value || "150 hp";
+        vehicles[vIdx].wheelbase = document.getElementById('edit-wheelbase')?.value || "2.650 mm";
+        vehicles[vIdx].tankCap = document.getElementById('edit-tankCap')?.value || "55 L";
+        vehicles[vIdx].valves = document.getElementById('edit-valves')?.value || "4";
+
+        vehicles[vIdx].alloys = document.getElementById('edit-alloys')?.value || "Sí";
+        vehicles[vIdx].sunroof = document.getElementById('edit-sunroof')?.value || "Sí";
+        vehicles[vIdx].spareSupport = document.getElementById('edit-spareSupport')?.value || "Sí";
+        vehicles[vIdx].rearWiper = document.getElementById('edit-rearWiper')?.value || "Sí";
+        vehicles[vIdx].roofRack = document.getElementById('edit-roofRack')?.value || "Sí";
+
+        vehicles[vIdx].autopilot = document.getElementById('edit-autopilot')?.value || "Sí";
+        vehicles[vIdx].aircon = document.getElementById('edit-aircon')?.value || "Sí";
+        vehicles[vIdx].onboardComp = document.getElementById('edit-onboardComp')?.value || "Sí";
+        vehicles[vIdx].powerWindows = document.getElementById('edit-powerWindows')?.value || "Sí";
+        vehicles[vIdx].rainSensor = document.getElementById('edit-rainSensor')?.value || "Sí";
+        vehicles[vIdx].trunkRelease = document.getElementById('edit-trunkRelease')?.value || "Sí";
+        vehicles[vIdx].steeringRemote = document.getElementById('edit-steeringRemote')?.value || "Sí";
+        vehicles[vIdx].cupholders = document.getElementById('edit-cupholders')?.value || "Sí";
+        vehicles[vIdx].climate = document.getElementById('edit-climate')?.value || "Sí";
+        vehicles[vIdx].autoGlass = document.getElementById('edit-autoGlass')?.value || "Sí";
+
+        vehicles[vIdx].amfm = document.getElementById('edit-amfm')?.value || "Sí";
+        vehicles[vIdx].aux = document.getElementById('edit-aux')?.value || "Sí";
+        vehicles[vIdx].bluetooth = document.getElementById('edit-bluetooth')?.value || "Sí";
+        vehicles[vIdx].cd = document.getElementById('edit-cd')?.value || "Sí";
+        vehicles[vIdx].dvd = document.getElementById('edit-dvd')?.value || "Sí";
+        vehicles[vIdx].mp3 = document.getElementById('edit-mp3')?.value || "Sí";
+        vehicles[vIdx].usb = document.getElementById('edit-usb')?.value || "Sí";
+      }
+
+      vehicles[vIdx].desc = document.getElementById('edit-desc').value;
+
+      if(saveVehiclesState()) {
+        alert("✅ Ficha actualizada correctamente.");
+        switchAdminTab('stock', document.getElementById('tab-stock'));
+      }
+    }
+
+    function deleteVehicle(vIdx) {
+      if (confirm("¿Estás seguro de eliminar este elemento?")) {
+        vehicles.splice(vIdx, 1);
+        saveVehiclesState();
+        renderAdminContent();
+      }
+    }
+
+    function deleteCarImage(vIdx, imgIdx) {
+      vehicles[vIdx].images.splice(imgIdx, 1);
+      saveVehiclesState();
+      renderAdminContent();
+    }
+
+    function addCarImage(vIdx, input) {
+      const file = input.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          vehicles[vIdx].images.push(e.target.result);
+          if(saveVehiclesState()) {
+            renderAdminContent();
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function handleMultipleUpload(input) {
+      const files = Array.from(input.files);
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = function() {
+            const canvas = document.createElement('canvas');
+            const MAX_WIDTH = 900;
+            const MAX_HEIGHT = 700;
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+              if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width;
+                width = MAX_WIDTH;
+              }
+            } else {
+              if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height;
+                height = MAX_HEIGHT;
+              }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            
+            const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.75);
+            tempUploadImages.push(compressedDataUrl);
+            
+            const previewGrid = document.getElementById('add-preview-grid');
+            if(previewGrid) {
+              previewGrid.innerHTML = tempUploadImages.map(img => `<div class="admin-photo-thumb"><img src="${img}"></div>`).join('');
+            }
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function saveNewCar() {
+      const brand = document.getElementById('add-brand').value;
+      const model = document.getElementById('add-model').value;
+      const price = document.getElementById('add-price').value;
+      const type = document.getElementById('add-type').value;
+      const customId = document.getElementById('add-id').value.trim();
+
+      if (!brand || !model || !price) return alert("Completa al menos Marca, Modelo y Precio.");
+
+      let newObj = {
+        id: customId || ("v_" + Date.now()),
+        type,
+        brand, model,
+        year: document.getElementById('add-year').value || "2020",
+        version: document.getElementById('add-version').value || "",
+        color: document.getElementById('add-color')?.value || "Negro",
+        km: document.getElementById('add-km').value || "0 km",
+        price,
+        status: "Disponible",
+        images: tempUploadImages.length ? tempUploadImages : ["https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80"],
+        desc: document.getElementById('add-desc').value
+      };
+
+      if (type === 'Moto') {
+        newObj.motoType = document.getElementById('add-motoType')?.value || "Enduro";
+        newObj.engineLiters = document.getElementById('add-engine')?.value || "250 cc";
+        newObj.engineType = document.getElementById('add-engineType')?.value || "4 tiempos";
+        newObj.power = document.getElementById('add-power')?.value || "20,4 hp";
+      } else {
+        newObj.fuel = document.getElementById('add-fuel')?.value || "Nafta";
+        newObj.doors = document.getElementById('add-doors')?.value || "4";
+        newObj.transmission = document.getElementById('add-trans')?.value || "Automática";
+        newObj.engineLiters = document.getElementById('add-engine')?.value || "2.0";
+        newObj.bodyType = document.getElementById('add-body')?.value || "Sedán";
+
+        newObj.abs = document.getElementById('add-abs')?.value || "Sí";
+        newObj.frontGuard = document.getElementById('add-frontGuard')?.value || "Sí";
+        newObj.airbag = document.getElementById('add-airbag')?.value || "Sí";
+        newObj.autoLights = document.getElementById('add-autoLights')?.value || "Sí";
+        newObj.parkingSensor = document.getElementById('add-parkingSensor')?.value || "Sí";
+        newObj.dualAirbag = document.getElementById('add-dualAirbag')?.value || "Sí";
+        newObj.rearFogLights = document.getElementById('add-rearFogLights')?.value || "Sí";
+        newObj.rearDefroster = document.getElementById('add-rearDefroster')?.value || "Sí";
+        newObj.stabilityCtrl = document.getElementById('add-stabilityCtrl')?.value || "Sí";
+        newObj.ledBrake = document.getElementById('add-ledBrake')?.value || "Sí";
+        newObj.centralLock = document.getElementById('add-centralLock')?.value || "Sí";
+        newObj.asr = document.getElementById('add-asr')?.value || "Sí";
+
+        newObj.traction = document.getElementById('add-traction')?.value || "Delantera";
+        newObj.capacity = document.getElementById('add-capacity')?.value || "5";
+        newObj.power = document.getElementById('add-power')?.value || "150 hp";
+        newObj.wheelbase = document.getElementById('add-wheelbase')?.value || "2.650 mm";
+        newObj.tankCap = document.getElementById('add-tankCap')?.value || "55 L";
+        newObj.valves = document.getElementById('add-valves')?.value || "4";
+
+        newObj.alloys = document.getElementById('add-alloys')?.value || "Sí";
+        newObj.sunroof = document.getElementById('add-sunroof')?.value || "Sí";
+        newObj.spareSupport = document.getElementById('add-spareSupport')?.value || "Sí";
+        newObj.rearWiper = document.getElementById('add-rearWiper')?.value || "Sí";
+        newObj.roofRack = document.getElementById('add-roofRack')?.value || "Sí";
+
+        newObj.autopilot = document.getElementById('add-autopilot')?.value || "Sí";
+        newObj.aircon = document.getElementById('add-aircon')?.value || "Sí";
+        newObj.onboardComp = document.getElementById('add-onboardComp')?.value || "Sí";
+        newObj.powerWindows = document.getElementById('add-powerWindows')?.value || "Sí";
+        newObj.rainSensor = document.getElementById('add-rainSensor')?.value || "Sí";
+        newObj.trunkRelease = document.getElementById('add-trunkRelease')?.value || "Sí";
+        newObj.steeringRemote = document.getElementById('add-steeringRemote')?.value || "Sí";
+        newObj.cupholders = document.getElementById('add-cupholders')?.value || "Sí";
+        newObj.climate = document.getElementById('add-climate')?.value || "Sí";
+        newObj.autoGlass = document.getElementById('add-autoGlass')?.value || "Sí";
+
+        newObj.amfm = document.getElementById('add-amfm')?.value || "Sí";
+        newObj.aux = document.getElementById('add-aux')?.value || "Sí";
+        newObj.bluetooth = document.getElementById('add-bluetooth')?.value || "Sí";
+        newObj.cd = document.getElementById('add-cd')?.value || "Sí";
+        newObj.dvd = document.getElementById('add-dvd')?.value || "Sí";
+        newObj.mp3 = document.getElementById('add-mp3')?.value || "Sí";
+        newObj.usb = document.getElementById('add-usb')?.value || "Sí";
+      }
+
+      vehicles.push(newObj);
+      if(saveVehiclesState()) {
+        alert("✅ Producto publicado con éxito.");
+        switchAdminTab('stock', document.getElementById('tab-stock'));
+      }
+    }
+
+    function saveConfigFromAdmin() {
+      config.featuredIds = document.getElementById('cfg-featured').value;
+      config.address = document.getElementById('cfg-address').value;
+      config.hours = document.getElementById('cfg-hours').value;
+      config.phone = document.getElementById('cfg-phone').value;
+      config.instagram = document.getElementById('cfg-insta').value;
+      saveConfigState();
+      alert("✅ Configuración y cartelera guardadas correctamente.");
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      applyConfigUI();
+      renderHeroSlider();
+      renderShowroom();
+    });
+  </script>
+</body>
+</html>
